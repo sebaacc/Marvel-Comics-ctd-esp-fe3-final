@@ -4,14 +4,14 @@ import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 
 const PreguntasFrecuentesPage: NextPage = () => {
-  const [faqs, setFaqs] = useState<FaqsType[]>(faqsData); // Estado para almacenar las FAQs
+  const [faqs, setFaqs] = useState<FaqsType[]>([]); // Estado para almacenar las FAQs
 
   useEffect(() => {
-    // Lógica para cargar las FAQs desde el JSON o una API
     const fetchFaqs = async () => {
       try {
         const response = await fetch("/api/faqs"); // Endpoint para obtener las FAQs
         const data = await response.json();
+        console.log(data);
         setFaqs(data);
       } catch (error) {
         console.error("Error fetching FAQs:", error);
