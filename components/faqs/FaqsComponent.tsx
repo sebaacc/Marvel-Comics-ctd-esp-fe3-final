@@ -10,7 +10,7 @@ type FaqListProps = {
 
 const FaqComponent: React.FC<FaqListProps> = ({ faqs }) => {
   return (
-    <LayoutGeneral>
+    <>
       {faqs.map((faq) => (
         <Accordion key={faq.id}>
           <AccordionSummary expandIcon={<ArrowDropDown/>} aria-controls="panel2-content" id="panel2-header">
@@ -21,7 +21,7 @@ const FaqComponent: React.FC<FaqListProps> = ({ faqs }) => {
           </AccordionDetails>
         </Accordion>
       ))}
-    </LayoutGeneral>
+    </>
   );
 };
 

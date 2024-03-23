@@ -8,10 +8,10 @@ interface PreguntasFrecuentesPageProps {
 const PreguntasFrecuentesPage: NextPage<PreguntasFrecuentesPageProps> = ({faqs}) => {
 
   return (
-    <>
+    <div>
       <h1>Preguntas Frecuentes</h1>
       <FaqComponent faqs={faqs} />
-    </>
+    </div>
   );
 };
 
