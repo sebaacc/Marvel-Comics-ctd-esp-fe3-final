@@ -2,6 +2,7 @@ import React from 'react';
 import { FaqsType } from './faqsData'; // Importa el tipo FaqsType desde tu archivo de tipos
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from '@mui/material';
 import { ArrowDropDown } from '@mui/icons-material';
+import LayoutGeneral from '../layouts/layout-general';
 
 type FaqListProps = {
     faqs: FaqsType[];
@@ -9,7 +10,7 @@ type FaqListProps = {
 
 const FaqComponent: React.FC<FaqListProps> = ({ faqs }) => {
   return (
-    <div>
+    <LayoutGeneral>
       {faqs.map((faq) => (
         <Accordion key={faq.id}>
           <AccordionSummary expandIcon={<ArrowDropDown/>} aria-controls="panel2-content" id="panel2-header">
@@ -20,7 +21,7 @@ const FaqComponent: React.FC<FaqListProps> = ({ faqs }) => {
           </AccordionDetails>
         </Accordion>
       ))}
-    </div>
+    </LayoutGeneral>
   );
 };
 
