@@ -1,5 +1,5 @@
 import styles from "./comicsGrid.module.css";
-import Card from "../common/Card";
+import Card from "../common/CardM";
 
 export interface Props {
   comics: {

@@ -1,0 +1,12 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 10vw;
+    margin-bottom: 4vh;
+  }
+
+ .cardButtonDiv {
+    display: flex;
+    justify-content: space-evenly;
+ } 
