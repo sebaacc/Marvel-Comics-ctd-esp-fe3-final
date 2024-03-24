@@ -1,0 +1,11 @@
+.comicsGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .comicCard {
+    width: calc(25% - 10px); /* Para 4 columnas, con margen de 10px entre cada columna */
+    margin-bottom: 20px; /* Espacio entre filas */
+  }
+  

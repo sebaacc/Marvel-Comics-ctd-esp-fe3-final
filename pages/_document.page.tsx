@@ -5,7 +5,7 @@ export default function Document() {
         <Html style={{height: '100%'}}>
             <Head>
                 <link
-                    href="https://fonts.googleapis.com/css2?family=Roboto"
+                    href="https://fonts.googleapis.com/css2?family=Roboto&display=optional"
                     rel="stylesheet"
                 />
             </Head>
