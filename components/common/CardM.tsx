@@ -34,8 +34,8 @@ export default function CardM({ comic }: ComicProps) {
           </Typography>
         </CardContent>
         <CardActions className={styles.cardButtonDiv}>
-          <Button size="small">Comprar</Button>
-          <Button size="small">Ver detalle</Button>
+          <Button size="large">Comprar</Button>
+          <Button size="large">Ver detalle</Button>
         </CardActions>
       </Card>
     </div>

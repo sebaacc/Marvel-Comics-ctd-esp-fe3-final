@@ -3,8 +3,12 @@ import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import ComicsGrid, { Props } from "dh-marvel/components/ComicsGrid/ComicsGrid";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
+import { useState } from "react";
+import { Pagination } from "@mui/material";
 
 const Index: NextPage<Props> = ({ comics }) => {
+  
+  
   return (
     <>
       <Head>
@@ -15,6 +19,7 @@ const Index: NextPage<Props> = ({ comics }) => {
 
       <BodySingle title={"Marvel Comics"}>
         <ComicsGrid comics={comics} />
+        <Pagination count={10} color="primary" />
       </BodySingle>
     </>
   );
