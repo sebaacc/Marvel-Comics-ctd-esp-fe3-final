@@ -22,7 +22,7 @@ export interface ComicProps {
 export default function CardM({ comic }: ComicProps) {
   return (
     <div>
-      <Card className={styles.card} sx={{ maxWidth: 300, minHeight: 500 }}>
+      <Card className={styles.card} sx={{ maxWidth: 300, minHeight: 500, minWidth: "100%" }}>
         <CardMedia
           sx={{ height: 310 }}
           image={comic.thumbnail.path + "." + comic.thumbnail.extension}
