@@ -1,8 +1,8 @@
-import Image from 'next/image'
+import Image from "next/image";
 
 export interface ComicProps {
   comic: {
-    id:number,
+    id: number;
     title: string;
     thumbnail: {
       path: string;
@@ -22,9 +22,6 @@ export default function Card({ comic }: ComicProps) {
       />
       <div className="px-6 py-4">
         <div className="font-bold text-xl mb-2">{comic.title}</div>
-        {/* <p className="text-gray-700 text-base">
-          <strong>Comic:</strong> {comic.title}
-        </p> */}
       </div>
     </div>
   );

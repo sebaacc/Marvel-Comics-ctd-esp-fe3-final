@@ -15,7 +15,7 @@ const ComicsGrid: React.FC<Props> = ({ comics }) => {
   return (
     <div className={styles.comicsGrid}>
       {comicsList.map((item, index) => (
-        <div className={styles.comicCard}>
+        <div key={index} className={styles.comicCard}>
           <Card key={index} comic={item} />
         </div>
       ))}
