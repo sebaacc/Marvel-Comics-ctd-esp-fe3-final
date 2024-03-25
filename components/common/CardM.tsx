@@ -24,7 +24,7 @@ export default function CardM({ comic }: ComicProps) {
     <div>
       <Card className={styles.card} sx={{ maxWidth: 300, minHeight: 500, minWidth: "100%" }}>
         <CardMedia
-          sx={{ height: 310 }}
+          sx={{ height: 310, backgroundSize: "contain" }}
           image={comic.thumbnail.path + "." + comic.thumbnail.extension}
           title={comic.title}
         />

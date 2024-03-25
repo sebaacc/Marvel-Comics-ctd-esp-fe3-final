@@ -1,13 +1,19 @@
 .comicsGrid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+  padding-top: 2vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center
+}
+
+.comicCard {
+  min-width: 45vh;
+  margin-left: 10px;
+  width: calc(25% - 10px);
+  margin-bottom: 20px;
+}
+
+.paginationComp {
+  display: flex;
   
-  .comicCard {
-    min-width: 45vh;
-    margin-left: 10px;
-    width: calc(25% - 10px); 
-    margin-bottom: 20px;
-  }
-  
+  padding: 3.5vh;
+}

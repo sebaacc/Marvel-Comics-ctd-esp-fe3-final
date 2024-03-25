@@ -39,6 +39,7 @@ const ComicsGrid: React.FC<Props> = ({ comics }) => {
         </div>
       ))}
       <Pagination
+        className={styles.paginationComp}
         count={comics.data.results.length / 12}
         color="primary"
         onChange={(event, value) => setPage(value - 1)}
