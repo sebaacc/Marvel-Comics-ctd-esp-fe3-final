@@ -1,5 +1,5 @@
 import styles from "./comicsGrid.module.css";
-import Card from "../common/CardM";
+import Card, { ComicProps } from "../common/CardM";
 import { useEffect, useState } from "react";
 import { Pagination } from "@mui/material";
 import dynamic from "next/dynamic";
@@ -13,22 +13,24 @@ export interface Props {
 }
 
 const ComicsGrid: React.FC<Props> = ({ comics }) => {
-  const [comicsData, setComicsData] = useState([])
-  
-  const [page, setPage] = useState(0)
-  
-  const [filteredComics, setfilteredComics] = useState()
+  const [comicsData, setComicsData] = useState([]);
 
-  // const filterPage = () => {
-  //   setComicsData(comicsData.slice(page*12,12))
-  // }
+  const [page, setPage] = useState(0);
 
   useEffect(() => {
-    setComicsData((comics.data.results).slice(page*12,(page+1)*12))
+    const loadData = async () => {
+      const fetchedData = await new Promise<any>((resolve) => {
+        setTimeout(() => {
+          resolve(comics.data.results.slice(page * 12, (page + 1) * 12));
+        }, 10);
+      });
+
+      setComicsData(fetchedData);
+    };
+
+    loadData();
   }, [comics, page]);
-  //const comicsList = comics.data.results;
-  
-  
+
   return (
     <div className={styles.comicsGrid}>
       {comicsData.map((item, index) => (
@@ -36,10 +38,13 @@ const ComicsGrid: React.FC<Props> = ({ comics }) => {
           <Card key={index} comic={item} />
         </div>
       ))}
-        <Pagination count={comicsData.length} color="primary" onChange={(event, value) => setPage(value-1)}  />
-
+      <Pagination
+        count={comics.data.results.length / 12}
+        color="primary"
+        onChange={(event, value) => setPage(value - 1)}
+      />
     </div>
   );
 };
 
-export default dynamic (() => Promise.resolve(ComicsGrid), {ssr:false}); 
+export default dynamic(() => Promise.resolve(ComicsGrid), { ssr: false });

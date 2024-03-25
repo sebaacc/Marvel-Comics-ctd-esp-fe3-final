@@ -3,12 +3,8 @@ import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import ComicsGrid, { Props } from "dh-marvel/components/ComicsGrid/ComicsGrid";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
-import { useState } from "react";
-import { Pagination } from "@mui/material";
 
 const Index: NextPage<Props> = ({ comics }) => {
-  
-  
   return (
     <>
       <Head>
@@ -25,7 +21,7 @@ const Index: NextPage<Props> = ({ comics }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const comics = await getComics(0, 360);
+  const comics = await getComics(0, 96);
 
   return {
     props: {
