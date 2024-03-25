@@ -20,15 +20,14 @@ const ComicsGrid: React.FC<Props> = ({ comics }) => {
   useEffect(() => {
     const loadData = async () => {
       const fetchedData = await new Promise<any>((resolve) => {
-        setTimeout(() => {
           resolve(comics.data.results.slice(page * 12, (page + 1) * 12));
-        }, 10);
       });
 
       setComicsData(fetchedData);
     };
 
     loadData();
+    window.scrollTo({top: 0, behavior: 'smooth'})
   }, [comics, page]);
 
   return (
