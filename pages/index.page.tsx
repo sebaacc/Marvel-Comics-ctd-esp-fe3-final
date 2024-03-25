@@ -19,14 +19,13 @@ const Index: NextPage<Props> = ({ comics }) => {
 
       <BodySingle title={"Marvel Comics"}>
         <ComicsGrid comics={comics} />
-        <Pagination count={10} color="primary" />
       </BodySingle>
     </>
   );
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const comics = await getComics(0, 12);
+  const comics = await getComics(0, 360);
 
   return {
     props: {
