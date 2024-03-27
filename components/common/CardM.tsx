@@ -10,16 +10,39 @@ import styles from "./card.module.css";
 import Link from "next/link";
 
 export interface ComicProps {
-  comic: {
-    id: number;
-    title: string;
-    thumbnail: {
-      path: string;
-      extension: string;
-    };
-  };
+  comic: comicFormat;
 }
 
+export interface comicFormat {
+  id: number;
+  digitalId: number;
+  title: string;
+  description: string;
+  modified: string;
+  prices: Price[];
+  thumbnail: Thumbnail;
+  images: Thumbnail[];
+  characters: Characters;
+}
+
+interface Characters {
+  available: number;
+  collectionURI: string;
+  items: Item[];
+  returned: number;
+}
+interface Item {
+  resourceURI: string;
+  name: string;
+}
+interface Thumbnail {
+  path: string;
+  extension: string;
+}
+interface Price {
+  type: string;
+  price: number;
+}
 export default function CardM({ comic }: ComicProps) {
   return (
     <div>

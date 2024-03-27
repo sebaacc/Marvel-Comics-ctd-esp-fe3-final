@@ -6,16 +6,14 @@ import {
   CardContent,
   Typography,
 } from "@mui/material";
-import { NextPage } from "next";
-import { useRouter } from "next/router";
+import { ComicProps } from "dh-marvel/components/common/CardM";
+import { getComic } from "dh-marvel/services/marvel/marvel.service";
+import { GetServerSideProps, NextPage } from "next";
 
-const Comic: NextPage = () => {
-  const { query } = useRouter();
-
-  const idComic = query.id;
-  const srcImg =
-    "http://i.annihil.us/u/prod/marvel/i/mg/6/60/5967d3020ef5a.jpg";
-  const comicTitle = "titulo";
+const Comic: NextPage<ComicProps> = ({ comic }) => {
+  const idComic = comic.id;
+  const srcImg = comic.thumbnail.path + "." + comic.thumbnail.extension;
+  const comicTitle = comic.title;
 
   const bull = (
     <Box
@@ -47,13 +45,25 @@ const Comic: NextPage = () => {
 
   return (
     <div>
-      <Typography variant="h4" gutterBottom>
-        nombre del comic: {idComic}
+      <Typography variant="h3" gutterBottom>
+        {comicTitle}
       </Typography>
-
       <Card variant="outlined">{card}</Card>
     </div>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { id } = ctx.query;
+  const idComic = Number(id);
+
+  const comic = await getComic(idComic);
+
+  return {
+    props: {
+      comic,
+    },
+  };
 };
 
 export default Comic;
