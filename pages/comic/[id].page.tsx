@@ -1,55 +1,60 @@
 import {
-  Box,
   Button,
   Card,
   CardActions,
   CardContent,
+  CardMedia,
   Typography,
 } from "@mui/material";
 import { ComicProps } from "dh-marvel/components/common/CardM";
 import { getComic } from "dh-marvel/services/marvel/marvel.service";
 import { GetServerSideProps, NextPage } from "next";
+import styles from "./comicPage.module.css";
 
 const Comic: NextPage<ComicProps> = ({ comic }) => {
-  const idComic = comic.id;
   const srcImg = comic.thumbnail.path + "." + comic.thumbnail.extension;
   const comicTitle = comic.title;
 
-  const bull = (
-    <Box
-      component="span"
-      sx={{ display: "inline-block", mx: "2px", transform: "scale(0.8)" }}
-    >
-      •
-    </Box>
-  );
+
+  //console.log(comic.prices)
+
+
   const card = (
     <>
-      <img srcSet={srcImg} src={srcImg} alt={comicTitle} loading="lazy" />
-      <CardContent>
-        <Typography variant="h5" component="div">
-          be{bull}nev{bull}o{bull}lent Descripción del comic
+      <CardMedia
+        sx={{ width: "50vh", height: "70vh", objectFit: "contain" }}
+        component="img"
+        image={srcImg}
+        alt={comicTitle}
+      />
+      <CardContent className={styles.comicDescription}>
+        <Typography variant="h3" gutterBottom>
+          {comicTitle}
         </Typography>
-        <Typography sx={{ mb: 1.5 }} color="text.primary">
-          precio
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          <s>precio anterior</s>
-        </Typography>
+        <div>
+          <Typography variant="body2" color="text.secondary">
+            Precio anterior: <s>{comic.prices[0].price}</s>
+          </Typography>
+          <Typography variant="subtitle1" sx={{ mb: 1.5 }} color="text.primary">
+            Precio: {comic.prices[0].price}
+          </Typography>
+          <Typography variant="body2">
+          {comic.description}
+          </Typography>
+        </div>
+        <CardActions>
+          <Button size="large">Comprar</Button>
+        </CardActions>
       </CardContent>
-      <CardActions>
-        <Button size="large">Comprar</Button>
-      </CardActions>
     </>
   );
 
   return (
-    <div>
-      <Typography variant="h3" gutterBottom>
-        {comicTitle}
-      </Typography>
-      <Card variant="outlined">{card}</Card>
-    </div>
+    <>
+      <Card className={styles.comicCard} variant="outlined">
+        {card}
+      </Card>
+    </>
   );
 };
 

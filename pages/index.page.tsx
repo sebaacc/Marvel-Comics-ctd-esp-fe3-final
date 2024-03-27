@@ -21,7 +21,7 @@ const Index: NextPage<Props> = ({ comics }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (ctx) => {
-  const comics = await getComics(0, 96);
+  const comics = await getComics(100, 96);
 
   return {
     props: {
