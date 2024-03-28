@@ -1,0 +1,11 @@
+.charactersContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.asociatedCharacterCard {
+    max-width: 50vh;
+    min-width: 20vh;
+    padding: 6vh;
+    margin: 3vh;
+}

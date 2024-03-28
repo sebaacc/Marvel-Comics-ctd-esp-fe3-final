@@ -67,7 +67,7 @@ export default function CardM({ comic }: ComicProps) {
         </CardContent>
         <CardActions className={styles.cardButtonDiv}>
           <Button size="large">Comprar</Button>
-          <Link href={"/comic/" + comic.id}>
+          <Link href={"/comics/" + comic.id}>
             <Button size="large">Ver detalle</Button>
           </Link>
         </CardActions>
