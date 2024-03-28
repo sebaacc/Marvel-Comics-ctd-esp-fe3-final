@@ -1,6 +1,7 @@
 import FaqComponent from "dh-marvel/components/faqs/FaqsComponent";
 import { FaqsType } from "dh-marvel/components/faqs/faqsData";
 import type { NextPage } from "next";
+import styles from "./faqs.module.css";
 
 interface PreguntasFrecuentesPageProps {
   faqs: FaqsType[];
@@ -9,7 +10,7 @@ const PreguntasFrecuentesPage: NextPage<PreguntasFrecuentesPageProps> = ({
   faqs,
 }) => {
   return (
-    <div>
+    <div className={styles.faqsPageStyle}>
       <h1>Preguntas Frecuentes</h1>
       <FaqComponent faqs={faqs} />
     </div>

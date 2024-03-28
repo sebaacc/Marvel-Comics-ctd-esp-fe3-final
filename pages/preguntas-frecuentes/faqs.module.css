@@ -1,0 +1,6 @@
+.faqsPageStyle {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    margin: 1vh 7vh 7vh 7vh;
+}

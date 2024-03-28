@@ -14,10 +14,9 @@ import styles from "./comicPage.module.css";
 const Comic: NextPage<ComicProps> = ({ comic }) => {
   const srcImg = comic.thumbnail.path + "." + comic.thumbnail.extension;
   const comicTitle = comic.title;
-
-
-  //console.log(comic.prices)
-
+  const lastComicPrice = comic.prices[comic.prices.length - 1];
+  const previousComicPrice = comic.prices[comic.prices.length - 2];
+  const inStock: boolean = true;
 
   const card = (
     <>
@@ -33,17 +32,23 @@ const Comic: NextPage<ComicProps> = ({ comic }) => {
         </Typography>
         <div>
           <Typography variant="body2" color="text.secondary">
-            Precio anterior: <s>{comic.prices[0].price}</s>
+            <s>Precio anterior: ${previousComicPrice?.price}</s>
           </Typography>
-          <Typography variant="subtitle1" sx={{ mb: 1.5 }} color="text.primary">
-            Precio: {comic.prices[0].price}
+          <Typography variant="h5" sx={{ mb: 1.5 }} color="text.primary">
+            Precio: ${lastComicPrice?.price}
           </Typography>
-          <Typography variant="body2">
-          {comic.description}
-          </Typography>
+          <Typography variant="body1">{comic.description}</Typography>
         </div>
         <CardActions>
-          <Button size="large">Comprar</Button>
+          {inStock ? (
+            <Button variant="contained" size="large">
+              Comprar
+            </Button>
+          ) : (
+            <Button disabled variant="contained" size="large">
+              Comprar
+            </Button>
+          )}
         </CardActions>
       </CardContent>
     </>
