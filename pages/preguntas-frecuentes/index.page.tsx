@@ -21,8 +21,7 @@ export default PreguntasFrecuentesPage;
 
 export async function getStaticProps() {
   try {
-    const url = "https://65fdf9b6b2a18489b385aa85.mockapi.io/api/faqs";
-    const response = await fetch(url);
+    const response = await fetch("http://localhost:3000/api/faqs");
     const data = await response.json();
     return {
       props: {

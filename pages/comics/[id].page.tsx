@@ -33,8 +33,6 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
   const previousComicPrice = comic.prices[comic.prices.length - 2];
   const inStock: boolean = true;
 
-  console.log(asociatedCharacters);
-
   const card = (
     <>
       <CardMedia
