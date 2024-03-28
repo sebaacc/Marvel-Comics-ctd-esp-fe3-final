@@ -9,8 +9,10 @@ import {
   Container,
   Grid,
   TextField,
-  MenuItem,
+  IconButton,
+  InputAdornment,
 } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 export type FormValues = {
   firstName: string;
@@ -33,7 +35,11 @@ const CheckoutPage = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>();
+  } = useForm<FormValues>({
+    defaultValues: {
+      securityCode: "",
+    },
+  });
 
   const steps = ["Datos Personales", "Dirección de entrega", "Datos del pago"];
 
@@ -47,6 +53,12 @@ const CheckoutPage = () => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+  };
+
+  const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
+
+  const toggleSecurityCodeVisibility = () => {
+    setSecurityCodeVisible((prev) => !prev);
   };
 
   return (
@@ -75,9 +87,8 @@ const CheckoutPage = () => {
                     message: "El nombre debe tener al menos 3 letras",
                   },
                   pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message:
-                      "El nombre no debe contener números ni caracteres especiales",
+                    value: /^[A-Za-zÁÉÍÓÚáéíóúüÜñÑ]+$/,
+                    message: "El nombre no debe contener números",
                   },
                 }}
                 render={({ field }) => (
@@ -99,9 +110,8 @@ const CheckoutPage = () => {
                   required: "Este campo es requerido",
                   minLength: 2,
                   pattern: {
-                    value: /^[A-Za-z]+$/,
-                    message:
-                      "El Apellido no debe contener números ni caracteres especiales",
+                    value: /^[A-Za-zÁÉÍÓÚáéíóúüÜñÑ]+$/,
+                    message: "El Apellido no debe contener números",
                   },
                 }}
                 render={({ field }) => (
@@ -162,7 +172,6 @@ const CheckoutPage = () => {
               <Controller
                 name="department"
                 control={control}
-                rules={{ required: "Este campo es requerido" }}
                 render={({ field }) => (
                   <TextField
                     {...field}
@@ -178,6 +187,7 @@ const CheckoutPage = () => {
               <Controller
                 name="city"
                 control={control}
+                rules={{ required: "Este campo es requerido" }}
                 render={({ field }) => (
                   <TextField
                     {...field}
@@ -189,7 +199,154 @@ const CheckoutPage = () => {
                 )}
               />
             </Grid>
-            {/* Agrega aquí los campos restantes para Datos Personales */}
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="province"
+                control={control}
+                rules={{ required: "Este campo es requerido" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Provincia"
+                    fullWidth
+                    error={!!errors.province}
+                    helperText={errors.province?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="postalCode"
+                control={control}
+                rules={{
+                  required: "Este campo es requerido",
+                  pattern: {
+                    value: /^[0-9]+$/,
+                    message: "Ingrese solo números",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Código Postal"
+                    fullWidth
+                    error={!!errors.postalCode}
+                    helperText={errors.postalCode?.message}
+                  />
+                )}
+              />
+            </Grid>
+          </Grid>
+        )}
+
+        {activeStep === 2 && (
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="cardNumber"
+                control={control}
+                rules={{
+                  required: "Este campo es requerido",
+                  pattern: {
+                    value:
+                      /^(?:4[0-9]{12}(?:[0-9]{3})?|5[1-5][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/,
+                    message: "Ingrese un número de tarjeta de crédito válido",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Número de tarjeta"
+                    fullWidth
+                    error={!!errors.cardNumber}
+                    helperText={errors.cardNumber?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="cardName"
+                control={control}
+                rules={{
+                  required: "Este campo es requerido",
+                  minLength: 2,
+                  pattern: {
+                    value: /^[A-Za-z]+$/,
+                    message:
+                      "El nombre no debe contener números ni caracteres especiales",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Nombre como aparece en la tarjeta"
+                    fullWidth
+                    error={!!errors.cardName}
+                    helperText={errors.cardName?.message}
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="expiryDate"
+                control={control}
+                rules={{
+                  required: "Este campo es requerido",
+                  pattern: {
+                    value: /^(0[1-9]|1[0-2])\/([0-9]{2})$/,
+                    message: "Ingrese una fecha de expiración válida (MM/YY)",
+                  },
+                }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Fecha de expiración de la tarjeta"
+                    fullWidth
+                    error={!!errors.expiryDate}
+                    helperText={errors.expiryDate?.message}
+                  />
+                )}
+              />
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <Controller
+                name="securityCode"
+                control={control}
+                rules={{ required: "Este campo es requerido" }}
+                render={({ field }) => (
+                  <TextField
+                    {...field}
+                    label="Código de Seguridad"
+                    fullWidth
+                    type={securityCodeVisible ? "text" : "password"}
+                    error={!!errors.securityCode}
+                    helperText={errors.securityCode?.message}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            aria-label="toggle password visibility"
+                            onClick={toggleSecurityCodeVisibility}
+                            edge="end"
+                          >
+                            {securityCodeVisible ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                )}
+              />
+              <Grid item xs={12} sm={6}></Grid>
+            </Grid>
           </Grid>
         )}
 

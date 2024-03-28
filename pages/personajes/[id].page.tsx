@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Card,
   CardActions,
   CardContent,
   CardMedia,
@@ -19,7 +20,7 @@ const Character: NextPage<CharacterProp> = ({ character }) => {
   const srcImg = character.thumbnail.path + "." + character.thumbnail.extension;
   const name = character.name;
   const card = (
-    <>
+    <Card className={styles.characterPageCard} sx={{ maxWidth: "75%", minHeight: "85%" }}>
       <CardMedia
         sx={{ width: "50vh", height: "70vh", objectFit: "contain" }}
         component="img"
@@ -45,7 +46,7 @@ const Character: NextPage<CharacterProp> = ({ character }) => {
           "No se encontró descripción del personaje."
         )}
       </CardContent>
-    </>
+    </Card>
   );
 
   return <div className={styles.comicPageContainer}>{card}</div>;
