@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { Button, Container, Typography } from "@mui/material";
+import { Alert, Button, Container, Typography } from "@mui/material";
 import styles from "./confirmation.module.css";
 import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
@@ -27,6 +27,7 @@ const ConfirmationPage = () => {
         <Typography variant="body1" align="center" paragraph>
           Será redirigido a la página de inicio en unos segundos.
         </Typography>
+        <Alert severity="success">Que disfrutes tu compra!</Alert>
         <Button
           variant="contained"
           color="primary"
