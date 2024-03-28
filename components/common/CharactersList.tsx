@@ -52,14 +52,15 @@ export default function CharactersList({ characters }: charactersListProps) {
     <>
       {characters ? (
         characters.map((character) => (
-          <Link href={`/personajes/${character.id}`}>
-            <Card className={styles.asociatedCharacterCard} key={character.id}>
+          <Card className={styles.asociatedCharacterCard} key={character.id}>
+            <Link href={`/personajes/${character.id}`}>
               <CardMedia
                 sx={{
                   width: "30vh",
                   height: "30vh",
                   objectFit: "contain",
                   borderRadius: "50%",
+                  cursor: "pointer",
                 }}
                 component="img"
                 height="20"
@@ -68,16 +69,16 @@ export default function CharactersList({ characters }: charactersListProps) {
                 }
                 alt={character.name}
               />
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {character.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {character.description}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Link>
+            </Link>
+            <CardContent>
+              <Typography variant="h5" component="div">
+                {character.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {character.description}
+              </Typography>
+            </CardContent>
+          </Card>
         ))
       ) : (
         <Typography
@@ -91,5 +92,21 @@ export default function CharactersList({ characters }: charactersListProps) {
     </>
   );
 
-  return <div className={styles.charactersContainer}>{cardList}</div>;
+  return (
+    <>
+      {characters ? (
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{ padding: "20px" }}
+        >
+          Personajes relacionados a este Comic
+        </Typography>
+      ) : (
+        ""
+      )}
+
+      <div className={styles.charactersContainer}>{cardList}</div>
+    </>
+  );
 }

@@ -4,6 +4,9 @@
     justify-content: center;
 }
 .asociatedCharacterCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     max-width: 50vh;
     min-width: 20vh;
     padding: 6vh;
