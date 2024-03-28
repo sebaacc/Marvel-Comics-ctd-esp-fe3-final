@@ -1,13 +1,6 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import styles from "./card.module.css";
-import Link from "next/link";
+import { getServerSideProps } from "dh-marvel/pages/comics/[id].page";
 
 export interface ComicProps {
   comic: comicFormat;
@@ -44,7 +37,9 @@ interface Price {
   price: number;
 }
 
-export default function CardM({ comic }: ComicProps) {
+export default function CheckoutComicCard({ comic }: ComicProps) {
+  const lastComicPrice = comic.prices[comic.prices.length - 1];
+
   return (
     <div>
       <Card
@@ -66,14 +61,9 @@ export default function CardM({ comic }: ComicProps) {
             {comic.title}
           </Typography>
         </CardContent>
-        <CardActions className={styles.cardButtonDiv}>
-          <Link href={"/checkout/" + comic.id}>
-            <Button size="large">Comprar</Button>
-          </Link>
-          <Link href={"/comics/" + comic.id}>
-            <Button size="large">Ver detalle</Button>
-          </Link>
-        </CardActions>
+        <Typography variant="h5" sx={{ mb: 1.5 }} color="text.primary">
+          Precio: ${lastComicPrice?.price}
+        </Typography>
       </Card>
     </div>
   );

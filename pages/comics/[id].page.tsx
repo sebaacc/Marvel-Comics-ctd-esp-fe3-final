@@ -17,6 +17,7 @@ import styles from "./comicPage.module.css";
 import CharactersList, {
   characterFormat,
 } from "dh-marvel/components/common/CharactersList";
+import Link from "next/link";
 
 export interface ComicPropsAndCharacters {
   comic: comicFormat;
@@ -70,9 +71,11 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
         </div>
         <CardActions className={styles.cardActionsStyle}>
           {inStock ? (
-            <Button variant="contained" size="large">
-              Comprar
-            </Button>
+            <Link href={"/checkout/" + comic.id}>
+              <Button variant="contained" size="large">
+                Comprar
+              </Button>
+            </Link>
           ) : (
             <Button disabled variant="contained" size="large">
               Comprar
