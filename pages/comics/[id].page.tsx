@@ -8,24 +8,32 @@ import {
   Typography,
 } from "@mui/material";
 import { comicFormat } from "dh-marvel/components/common/CardM";
-import { getCharactersFromComic, getComic } from "dh-marvel/services/marvel/marvel.service";
+import {
+  getCharactersFromComic,
+  getComic,
+} from "dh-marvel/services/marvel/marvel.service";
 import { GetServerSideProps, NextPage } from "next";
 import styles from "./comicPage.module.css";
-import CharactersList, { characterFormat } from "dh-marvel/components/common/CharactersList";
+import CharactersList, {
+  characterFormat,
+} from "dh-marvel/components/common/CharactersList";
 
 export interface ComicPropsAndCharacters {
   comic: comicFormat;
   asociatedCharacters: characterFormat[];
 }
 
-const Comic: NextPage<ComicPropsAndCharacters> = ({ comic, asociatedCharacters }) => {
+const Comic: NextPage<ComicPropsAndCharacters> = ({
+  comic,
+  asociatedCharacters,
+}) => {
   const srcImg = comic.thumbnail.path + "." + comic.thumbnail.extension;
   const comicTitle = comic.title;
   const lastComicPrice = comic.prices[comic.prices.length - 1];
   const previousComicPrice = comic.prices[comic.prices.length - 2];
   const inStock: boolean = true;
 
-  console.log(asociatedCharacters)
+  console.log(asociatedCharacters);
 
   const card = (
     <>
@@ -77,7 +85,7 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({ comic, asociatedCharacters }
       <Card className={styles.comicCard} variant="outlined">
         {card}
       </Card>
-      <CharactersList characters={asociatedCharacters}/>
+      <CharactersList characters={asociatedCharacters} />
     </div>
   );
 };
@@ -91,7 +99,8 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
 
   return {
     props: {
-      comic, asociatedCharacters,
+      comic,
+      asociatedCharacters,
     },
   };
 };

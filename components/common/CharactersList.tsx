@@ -1,5 +1,6 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import styles from "./CharactersList.module.css";
+import Link from "next/link";
 
 export interface charactersListProps {
   characters: characterFormat[];
@@ -49,32 +50,44 @@ interface Thumbnail {
 export default function CharactersList({ characters }: charactersListProps) {
   const cardList = (
     <>
-      {characters.map((character) => (
-        <Card className={styles.asociatedCharacterCard} key={character.id}>
-          <CardMedia
-            sx={{
-              width: "30vh",
-              height: "30vh",
-              objectFit: "contain",
-              borderRadius: "50%",
-            }}
-            component="img"
-            height="20"
-            image={
-              character.thumbnail.path + "." + character.thumbnail.extension
-            }
-            alt={character.name}
-          />
-          <CardContent>
-            <Typography variant="h5" component="div">
-              {character.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {character.description}
-            </Typography>
-          </CardContent>
-        </Card>
-      ))}
+      {characters ? (
+        characters.map((character) => (
+          <Link href={`/personajes/${character.id}`}>
+            <Card className={styles.asociatedCharacterCard} key={character.id}>
+              <CardMedia
+                sx={{
+                  width: "30vh",
+                  height: "30vh",
+                  objectFit: "contain",
+                  borderRadius: "50%",
+                }}
+                component="img"
+                height="20"
+                image={
+                  character.thumbnail.path + "." + character.thumbnail.extension
+                }
+                alt={character.name}
+              />
+              <CardContent>
+                <Typography variant="h5" component="div">
+                  {character.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {character.description}
+                </Typography>
+              </CardContent>
+            </Card>
+          </Link>
+        ))
+      ) : (
+        <Typography
+          variant="body2"
+          color="text.secondary"
+          sx={{ padding: "30px" }}
+        >
+          No se encontraron personajes relacionados a este producto.
+        </Typography>
+      )}
     </>
   );
 
