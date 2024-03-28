@@ -31,6 +31,7 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
   const comicTitle = comic.title;
   const lastComicPrice = comic.prices[comic.prices.length - 1];
   const previousComicPrice = comic.prices[comic.prices.length - 2];
+  const fakePrice = Math.round(lastComicPrice.price + 1);
   const inStock: boolean = true;
 
   const card = (
@@ -47,7 +48,11 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
         </Typography>
         <div>
           <Typography variant="body2" color="text.secondary">
-            <s>Precio anterior: ${previousComicPrice?.price}</s>
+            {previousComicPrice ? (
+              <s>Precio anterior: ${previousComicPrice?.price}</s>
+            ) : (
+              <s>Precio anterior: ${fakePrice}</s>
+            )}
           </Typography>
           <Typography variant="h5" sx={{ mb: 1.5 }} color="text.primary">
             Precio: ${lastComicPrice?.price}
