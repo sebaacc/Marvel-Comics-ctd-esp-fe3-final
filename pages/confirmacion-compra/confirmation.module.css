@@ -1,0 +1,10 @@
+.confirmationDiv {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  padding: 20px;
+  height: 80%;
+  align-self: center;
+  align-items: center;
+}
