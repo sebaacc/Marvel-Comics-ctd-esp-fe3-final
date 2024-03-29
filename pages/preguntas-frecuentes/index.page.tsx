@@ -20,9 +20,11 @@ const PreguntasFrecuentesPage: NextPage<PreguntasFrecuentesPageProps> = ({
 export default PreguntasFrecuentesPage;
 
 export async function getStaticProps() {
+  const urlApi = 'https://65fdf9b6b2a18489b385aa85.mockapi.io/api/faqs'
   try {
-    const response = await fetch("http://localhost:3000/api/faqs");
+    const response = await fetch(urlApi);
     const data = await response.json();
+        
     return {
       props: {
         faqs: data,

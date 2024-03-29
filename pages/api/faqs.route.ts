@@ -5,5 +5,9 @@ export default function faqsHandler(
   req: NextApiRequest,
   res: NextApiResponse<FaqsType[]>
 ) {
-  res.status(200).json(faqsData);
+  try {
+    res.status(200).json(faqsData);
+  } catch (error) {
+    res.status(500);
+  }
 }
