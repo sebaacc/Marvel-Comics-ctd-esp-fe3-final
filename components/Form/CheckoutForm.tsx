@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Link from "next/link";
+import styles from "pages/checkout/checkout.module.css"
 
 export type FormValues = {
   firstName: string;
@@ -64,7 +65,7 @@ const CheckoutForm = () => {
 
   const checkoutForm = (
     <>
-      <Container>
+      <Container className={styles.containerForm}>
         <Typography variant="h2" align="center" gutterBottom>
           Checkout
         </Typography>
@@ -364,6 +365,7 @@ const CheckoutForm = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
+                sx={{marginTop: "1rem"}}
               >
                 {activeStep === steps.length - 1 ? (
                   <Link href={"/confirmacion-compra"}>

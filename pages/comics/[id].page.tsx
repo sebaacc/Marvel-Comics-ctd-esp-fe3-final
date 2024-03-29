@@ -17,6 +17,7 @@ import styles from "./comicPage.module.css";
 import CharactersList, {
   characterFormat,
 } from "dh-marvel/components/common/CharactersList";
+import { useRouter } from "next/router";
 import Link from "next/link";
 
 export interface ComicPropsAndCharacters {
@@ -34,6 +35,10 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
   const previousComicPrice = comic.prices[comic.prices.length - 2];
   const fakePrice = Math.round(lastComicPrice.price + 1);
   const inStock: boolean = true;
+
+  const handleBuyClick = () => {
+    localStorage.setItem("selectedComic", JSON.stringify(comic));
+  };
 
   const card = (
     <>
@@ -71,8 +76,8 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
         </div>
         <CardActions className={styles.cardActionsStyle}>
           {inStock ? (
-            <Link href={"/checkout/" + comic.id}>
-              <Button variant="contained" size="large">
+            <Link href={"/checkout"}>
+              <Button variant="contained" size="large" onClick={handleBuyClick}>
                 Comprar
               </Button>
             </Link>

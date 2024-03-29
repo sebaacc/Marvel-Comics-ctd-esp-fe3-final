@@ -1,0 +1,12 @@
+.containerCheckout {
+    display: flex;
+	gap: 1rem;
+    margin: 20px;
+    justify-content: center;
+}
+
+.containerForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}

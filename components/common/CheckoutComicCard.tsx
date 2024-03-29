@@ -1,9 +1,9 @@
 import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import styles from "./card.module.css";
-import { getServerSideProps } from "dh-marvel/pages/comics/[id].page";
+import containerStyle from "pages/checkout/checkout.module.css";
 
 export interface ComicProps {
-  comic: comicFormat;
+  comic: comicFormat | null | undefined;
 }
 
 export interface comicFormat {
@@ -38,7 +38,24 @@ interface Price {
 }
 
 export default function CheckoutComicCard({ comic }: ComicProps) {
-  const lastComicPrice = comic.prices[comic.prices.length - 1];
+  const lastComicPrice = comic?.prices[comic.prices.length - 1];
+
+  if (!comic) {
+    return (
+      <div>
+        <Card
+          className={styles.card}
+          sx={{ maxWidth: 300, minHeight: 500, minWidth: "100%" }}
+        >
+          <CardContent>
+            <Typography variant="h5" component="div">
+              Cargando...
+            </Typography>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div>
