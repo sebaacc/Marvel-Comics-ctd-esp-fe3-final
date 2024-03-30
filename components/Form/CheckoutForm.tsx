@@ -13,23 +13,33 @@ import {
   InputAdornment,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import Link from "next/link";
 import styles from "pages/checkout/checkout.module.css";
 import { useRouter } from "next/router";
 
 export type FormValues = {
-  firstName: string;
-  lastName: string;
-  email: string;
-  address: string;
-  department: string;
-  city: string;
-  province: string;
-  postalCode: string;
-  cardNumber: string;
-  cardName: string;
-  expiryDate: string;
-  securityCode: string;
+  customer: {
+    name: string;
+    lastname: string;
+    email: string;
+    address: {
+      address1: string;
+      address2: string | null;
+      city: string;
+      state: string;
+      zipCode: string;
+    };
+  };
+  card: {
+    number: string;
+    cvc: string;
+    expDate: string;
+    nameOnCard: string;
+  };
+  order: {
+    name: string;
+    image: string;
+    price: number;
+  };
 };
 
 const CheckoutForm = () => {
@@ -38,11 +48,7 @@ const CheckoutForm = () => {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({
-    defaultValues: {
-      securityCode: "",
-    },
-  });
+  } = useForm<FormValues>();
 
   const steps = ["Datos Personales", "Dirección de entrega", "Datos del pago"];
 
@@ -85,7 +91,7 @@ const CheckoutForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="firstName"
+                  name="customer.name"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -104,15 +110,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Nombre"
                       fullWidth
-                      error={!!errors.firstName}
-                      helperText={errors.firstName?.message}
+                      error={!!errors.customer?.name}
+                      helperText={errors.customer?.name?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="lastName"
+                  name="customer.lastname"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -131,15 +137,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Apellido"
                       fullWidth
-                      error={!!errors.lastName}
-                      helperText={errors.lastName?.message}
+                      error={!!errors.customer?.lastname}
+                      helperText={errors.customer?.lastname?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="email"
+                  name="customer.email"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -154,8 +160,8 @@ const CheckoutForm = () => {
                       {...field}
                       label="Email"
                       fullWidth
-                      error={!!errors.email}
-                      helperText={errors.email?.message}
+                      error={!!errors.customer?.email}
+                      helperText={errors.customer?.email?.message}
                     />
                   )}
                 />
@@ -167,7 +173,7 @@ const CheckoutForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="address"
+                  name="customer.address.address1"
                   control={control}
                   defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
@@ -176,15 +182,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Dirección"
                       fullWidth
-                      error={!!errors.address}
-                      helperText={errors.address?.message}
+                      error={!!errors.customer?.address?.address1}
+                      helperText={errors.customer?.address?.address1?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="department"
+                  name="customer.address.address2"
                   control={control}
                   defaultValue=""
                   render={({ field }) => (
@@ -192,15 +198,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Departamento, piso, etc."
                       fullWidth
-                      error={!!errors.department}
-                      helperText={errors.department?.message}
+                      error={!!errors.customer?.address?.address2}
+                      helperText={errors.customer?.address?.address2?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="city"
+                  name="customer.address.city"
                   control={control}
                   defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
@@ -209,15 +215,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Ciudad"
                       fullWidth
-                      error={!!errors.city}
-                      helperText={errors.city?.message}
+                      error={!!errors.customer?.address?.city}
+                      helperText={errors.customer?.address?.city?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="province"
+                  name="customer.address.state"
                   control={control}
                   defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
@@ -226,15 +232,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Provincia"
                       fullWidth
-                      error={!!errors.province}
-                      helperText={errors.province?.message}
+                      error={!!errors.customer?.address?.state}
+                      helperText={errors.customer?.address?.state?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="postalCode"
+                  name="customer.address.zipCode"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -249,8 +255,8 @@ const CheckoutForm = () => {
                       {...field}
                       label="Código Postal"
                       fullWidth
-                      error={!!errors.postalCode}
-                      helperText={errors.postalCode?.message}
+                      error={!!errors.customer?.address?.zipCode}
+                      helperText={errors.customer?.address?.zipCode?.message}
                     />
                   )}
                 />
@@ -262,7 +268,7 @@ const CheckoutForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="cardNumber"
+                  name="card.number"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -278,15 +284,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Número de tarjeta"
                       fullWidth
-                      error={!!errors.cardNumber}
-                      helperText={errors.cardNumber?.message}
+                      error={!!errors.card?.number}
+                      helperText={errors.card?.number?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="cardName"
+                  name="card.nameOnCard"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -303,15 +309,15 @@ const CheckoutForm = () => {
                       {...field}
                       label="Nombre como aparece en la tarjeta"
                       fullWidth
-                      error={!!errors.cardName}
-                      helperText={errors.cardName?.message}
+                      error={!!errors.card?.nameOnCard}
+                      helperText={errors.card?.nameOnCard?.message}
                     />
                   )}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="expiryDate"
+                  name="card.expDate"
                   control={control}
                   defaultValue=""
                   rules={{
@@ -326,8 +332,8 @@ const CheckoutForm = () => {
                       {...field}
                       label="Fecha de expiración de la tarjeta"
                       fullWidth
-                      error={!!errors.expiryDate}
-                      helperText={errors.expiryDate?.message}
+                      error={!!errors.card?.expDate}
+                      helperText={errors.card?.expDate?.message}
                     />
                   )}
                 />
@@ -335,7 +341,7 @@ const CheckoutForm = () => {
 
               <Grid item xs={12} sm={6}>
                 <Controller
-                  name="securityCode"
+                  name="card.cvc"
                   control={control}
                   defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
@@ -345,8 +351,8 @@ const CheckoutForm = () => {
                       label="Código de Seguridad"
                       fullWidth
                       type={securityCodeVisible ? "text" : "password"}
-                      error={!!errors.securityCode}
-                      helperText={errors.securityCode?.message}
+                      error={!!errors.card?.cvc}
+                      helperText={errors.card?.cvc?.message}
                       InputProps={{
                         endAdornment: (
                           <InputAdornment position="end">
