@@ -15,6 +15,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Link from "next/link";
 import styles from "pages/checkout/checkout.module.css";
+import { useRouter } from "next/router";
 
 export type FormValues = {
   firstName: string;
@@ -53,8 +54,11 @@ const CheckoutForm = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
 
+  const router = useRouter();
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
+    router.push("/confirmacion-compra");
   };
 
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
@@ -83,6 +87,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="firstName"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     pattern: {
@@ -109,6 +114,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="lastName"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     minLength: {
@@ -135,6 +141,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="email"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     pattern: {
@@ -162,6 +169,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="address"
                   control={control}
+                  defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
                   render={({ field }) => (
                     <TextField
@@ -178,6 +186,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="department"
                   control={control}
+                  defaultValue=""
                   render={({ field }) => (
                     <TextField
                       {...field}
@@ -193,6 +202,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="city"
                   control={control}
+                  defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
                   render={({ field }) => (
                     <TextField
@@ -209,6 +219,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="province"
                   control={control}
+                  defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
                   render={({ field }) => (
                     <TextField
@@ -225,6 +236,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="postalCode"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     pattern: {
@@ -252,6 +264,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="cardNumber"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     pattern: {
@@ -275,6 +288,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="cardName"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     minLength: 2,
@@ -299,6 +313,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="expiryDate"
                   control={control}
+                  defaultValue=""
                   rules={{
                     required: "Este campo es requerido",
                     pattern: {
@@ -322,6 +337,7 @@ const CheckoutForm = () => {
                 <Controller
                   name="securityCode"
                   control={control}
+                  defaultValue=""
                   rules={{ required: "Este campo es requerido" }}
                   render={({ field }) => (
                     <TextField
@@ -363,21 +379,25 @@ const CheckoutForm = () => {
               </Grid>
             )}
             <Grid item xs={12}>
-              <Button
-                type="submit"
-                variant="contained"
-                color="primary"
-                onClick={handleNext}
-                sx={{ marginTop: "1rem" }}
-              >
-                {activeStep === steps.length - 1 ? (
-                  <Link href={"/confirmacion-compra"}>
-                    <span> Finalizar compra</span>
-                  </Link>
-                ) : (
-                  "Siguiente"
-                )}
-              </Button>
+              {activeStep === steps.length - 1 ? (
+                <Button
+                  type="submit"
+                  variant="contained"
+                  color="primary"
+                  sx={{ marginTop: "1rem" }}
+                >
+                  <span>Finalizar compra</span>
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleNext}
+                  sx={{ marginTop: "1rem" }}
+                >
+                  Siguiente
+                </Button>
+              )}
             </Grid>
           </Grid>
         </form>

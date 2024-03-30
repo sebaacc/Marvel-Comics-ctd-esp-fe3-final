@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/router";
 import { Alert, Button, Container, Typography } from "@mui/material";
 import styles from "./confirmation.module.css";
-import LayoutCheckout from "dh-marvel/components/layouts/layout-checkout";
 
 const ConfirmationPage = () => {
   const router = useRouter();
@@ -16,27 +15,25 @@ const ConfirmationPage = () => {
   });
 
   return (
-    <LayoutCheckout>
-      <Container className={styles.confirmationDiv}>
-        <Typography variant="h3" align="center" gutterBottom>
-          Confirmación de Pago
-        </Typography>
-        <Typography variant="body1" align="center" paragraph>
-          ¡Gracias por su compra! Estamos procesando su pago.
-        </Typography>
-        <Typography variant="body1" align="center" paragraph>
-          Será redirigido a la página de inicio en unos segundos.
-        </Typography>
-        <Alert severity="success">Que disfrutes tu compra!</Alert>
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => router.push("/")}
-        >
-          Volver a la página de inicio
-        </Button>
-      </Container>
-    </LayoutCheckout>
+    <Container className={styles.confirmationDiv}>
+      <Typography variant="h3" align="center" gutterBottom>
+        Confirmación de Pago
+      </Typography>
+      <Typography variant="body1" align="center" paragraph>
+        ¡Gracias por su compra! Estamos procesando su pago.
+      </Typography>
+      <Typography variant="body1" align="center" paragraph>
+        Será redirigido a la página de inicio en unos segundos.
+      </Typography>
+      <Alert severity="success">Que disfrutes tu compra!</Alert>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => router.push("/")}
+      >
+        Volver a la página de inicio
+      </Button>
+    </Container>
   );
 };
 
