@@ -34,7 +34,7 @@ const Comic: NextPage<ComicPropsAndCharacters> = ({
   const lastComicPrice = comic.prices[comic.prices.length - 1];
   const previousComicPrice = comic.prices[comic.prices.length - 2];
   const fakePrice = Math.round(lastComicPrice.price + 1);
-  const inStock: boolean = true;
+  const inStock: boolean = (comic.prices[0].price > 0 ? true : false);
 
   const handleBuyClick = () => {
     localStorage.setItem("selectedComic", JSON.stringify(comic));

@@ -48,6 +48,8 @@ export default function CardM({ comic }: ComicProps) {
   const handleBuyClick = () => {
     localStorage.setItem("selectedComic", JSON.stringify(comic));
   };
+  const inStock: boolean = (comic.prices[0].price > 0 ? true : false);
+
   return (
     <div>
       <Card
@@ -70,11 +72,17 @@ export default function CardM({ comic }: ComicProps) {
           </Typography>
         </CardContent>
         <CardActions className={styles.cardButtonDiv}>
-          <Link href={"/checkout"}>
-            <Button size="large" onClick={handleBuyClick}>
+        {inStock ? (
+            <Link href={"/checkout"}>
+              <Button size="large" onClick={handleBuyClick}>
+                Comprar
+              </Button>
+            </Link>
+          ) : (
+            <Button disabled size="large">
               Comprar
             </Button>
-          </Link>
+          )}
           <Link href={"/comics/" + comic.id}>
             <Button size="large">Ver detalle</Button>
           </Link>

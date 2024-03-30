@@ -14,7 +14,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import Link from "next/link";
-import styles from "pages/checkout/checkout.module.css"
+import styles from "pages/checkout/checkout.module.css";
 
 export type FormValues = {
   firstName: string;
@@ -85,13 +85,13 @@ const CheckoutForm = () => {
                   control={control}
                   rules={{
                     required: "Este campo es requerido",
+                    pattern: {
+                      value: /^[A-Za-zÁÉÍÓÚáéíóúüÜñÑ]+$/,
+                      message: "El apellido no debe contener números",
+                    },
                     minLength: {
                       value: 3,
                       message: "El nombre debe tener al menos 3 letras",
-                    },
-                    pattern: {
-                      value: /^[A-Za-zÁÉÍÓÚáéíóúüÜñÑ]+$/,
-                      message: "El nombre no debe contener números",
                     },
                   }}
                   render={({ field }) => (
@@ -111,7 +111,10 @@ const CheckoutForm = () => {
                   control={control}
                   rules={{
                     required: "Este campo es requerido",
-                    minLength: 2,
+                    minLength: {
+                      value: 2,
+                      message: "El apellido debe tener al menos 2 letras",
+                    },
                     pattern: {
                       value: /^[A-Za-zÁÉÍÓÚáéíóúüÜñÑ]+$/,
                       message: "El Apellido no debe contener números",
@@ -276,7 +279,7 @@ const CheckoutForm = () => {
                     required: "Este campo es requerido",
                     minLength: 2,
                     pattern: {
-                      value: /^[A-Za-z]+$/,
+                      value: /^[A-Za-z\s]+$/,
                       message:
                         "El nombre no debe contener números ni caracteres especiales",
                     },
@@ -365,7 +368,7 @@ const CheckoutForm = () => {
                 variant="contained"
                 color="primary"
                 onClick={handleNext}
-                sx={{marginTop: "1rem"}}
+                sx={{ marginTop: "1rem" }}
               >
                 {activeStep === steps.length - 1 ? (
                   <Link href={"/confirmacion-compra"}>
