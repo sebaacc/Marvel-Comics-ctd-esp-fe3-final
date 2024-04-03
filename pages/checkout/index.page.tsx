@@ -7,7 +7,46 @@ import { useEffect, useState } from "react";
 import styles from "./checkout.module.css";
 
 const CheckoutPage: NextPage<comicFormat> = () => {
-  const [comic, setComic] = useState<comicFormat | null>();
+  const [comic, setComic] = useState<comicFormat>({ "id": 0,
+  "digitalId": 0,
+  "title": "",
+  
+  "description": "",
+  "modified": "",
+
+  "prices": [
+    {
+      "type": "printPrice",
+      "price": 0
+    }
+  ],
+  "thumbnail": {
+    "path": "http://i.annihil.us/u/prod/marvel/i/mg/f/d0/65d73a4012029",
+    "extension": "jpg"
+  },
+  "images": [
+    {
+      "path": "http://i.annihil.us/u/prod/marvel/i/mg/f/d0/65d73a4012029",
+      "extension": "jpg"
+    }
+  ],
+
+  "characters": {
+    "available": 0,
+    "collectionURI": "",
+    "items": [
+      {
+        "resourceURI": "",
+        "name": ""
+      },
+      {
+        "resourceURI": "",
+        "name": ""
+      }
+    ],
+    "returned": 0
+  },
+});
 
   useEffect(() => {
     const savedComic = localStorage.getItem("selectedComic");
@@ -18,9 +57,9 @@ const CheckoutPage: NextPage<comicFormat> = () => {
 
   return (
     <>
-      {comic != null || undefined ? (
+      {comic.id > 0 ? (
         <Container className={styles.containerCheckout} maxWidth="lg">
-          {<CheckoutForm />}
+          <CheckoutForm comic={comic} />
           <CheckoutComicCard comic={comic} />
         </Container>
       ) : (

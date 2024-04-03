@@ -15,6 +15,7 @@ import {
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "pages/checkout/checkout.module.css";
 import { useRouter } from "next/router";
+import { ComicProps, comicFormat } from "../common/CardM";
 
 export type FormValues = {
   customer: {
@@ -36,13 +37,14 @@ export type FormValues = {
     nameOnCard: string;
   };
   order: {
-    name: string;
-    image: string;
-    price: number;
+    name: string | null | undefined;
+    image: string | null | undefined;
+    price: number | null | undefined;
   };
 };
 
-const CheckoutForm = () => {
+
+const CheckoutForm = ({ comic }: ComicProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const {
     control,
@@ -62,16 +64,59 @@ const CheckoutForm = () => {
 
   const router = useRouter();
 
+  const lastComicPrice = comic?.prices[comic.prices.length - 1].price;
+  const imgUrlComic:string = comic.images[0].path + '.' + comic.images[0].extension;
+
+  const dataPost: FormValues = {
+    customer: {
+      name: "",
+      lastname: "",
+      email: "",
+      address: {
+        address1: "",
+        address2: "",
+        city: "",
+        state: "",
+        zipCode: "",
+      },
+    },
+    card: {
+      number: "",
+      cvc: "",
+      expDate: "",
+      nameOnCard: "",
+    },
+    order: {
+      name: comic?.title,
+      image: imgUrlComic,
+      price: lastComicPrice,
+    },
+  };
+
   const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
-    router.push("/confirmacion-compra");
+    handleNext();
+    const dataForm:FormValues= data
+
+    const dataPostActualizado = {
+      ...dataPost,
+      customer: dataForm.customer,
+      card: dataForm.card
+    }
+
+    console.log(dataPostActualizado);
+    
+    if (activeStep == 2) {
+      router.push("/confirmacion-compra");
+    }
   };
 
   const [securityCodeVisible, setSecurityCodeVisible] = useState(false);
 
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible((prev) => !prev);
-  };
+  }; 
+  
+ 
 
   const checkoutForm = (
     <>
@@ -398,7 +443,7 @@ const CheckoutForm = () => {
                 <Button
                   variant="contained"
                   color="primary"
-                  onClick={handleNext}
+                  type="submit"
                   sx={{ marginTop: "1rem" }}
                 >
                   Siguiente

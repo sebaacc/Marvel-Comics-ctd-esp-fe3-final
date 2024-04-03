@@ -3,7 +3,7 @@ import styles from "./card.module.css";
 import containerStyle from "pages/checkout/checkout.module.css";
 
 export interface ComicProps {
-  comic: comicFormat | null | undefined;
+  comic: comicFormat;
 }
 
 export interface comicFormat {
