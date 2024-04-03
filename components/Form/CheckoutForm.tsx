@@ -16,6 +16,7 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import styles from "pages/checkout/checkout.module.css";
 import { useRouter } from "next/router";
 import { ComicProps, comicFormat } from "../common/CardM";
+import { postCheckout } from "dh-marvel/services/checkout/checkout.service";
 
 export type FormValues = {
   customer: {
@@ -43,7 +44,6 @@ export type FormValues = {
   };
 };
 
-
 const CheckoutForm = ({ comic }: ComicProps) => {
   const [activeStep, setActiveStep] = useState(0);
   const {
@@ -65,7 +65,8 @@ const CheckoutForm = ({ comic }: ComicProps) => {
   const router = useRouter();
 
   const lastComicPrice = comic?.prices[comic.prices.length - 1].price;
-  const imgUrlComic:string = comic.images[0].path + '.' + comic.images[0].extension;
+  const imgUrlComic: string =
+    comic.images[0].path + "." + comic.images[0].extension;
 
   const dataPost: FormValues = {
     customer: {
@@ -95,17 +96,22 @@ const CheckoutForm = ({ comic }: ComicProps) => {
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     handleNext();
-    const dataForm:FormValues= data
+    const dataForm: FormValues = data;
 
-    const dataPostActualizado = {
-      ...dataPost,
-      customer: dataForm.customer,
-      card: dataForm.card
-    }
-
-    console.log(dataPostActualizado);
-    
     if (activeStep == 2) {
+      const dataPostActualizado = {
+        ...dataPost,
+        customer: dataForm.customer,
+        card: {
+          number: dataForm.card.number.replace(" ", ""),
+          nameOnCard: dataForm.card.nameOnCard,
+          expDate: dataForm.card.expDate,
+          cvc: dataForm.card.cvc,
+        },
+      };
+
+      console.log(dataPostActualizado);
+      postCheckout(dataPostActualizado);
       router.push("/confirmacion-compra");
     }
   };
@@ -114,9 +120,7 @@ const CheckoutForm = ({ comic }: ComicProps) => {
 
   const toggleSecurityCodeVisibility = () => {
     setSecurityCodeVisible((prev) => !prev);
-  }; 
-  
- 
+  };
 
   const checkoutForm = (
     <>
